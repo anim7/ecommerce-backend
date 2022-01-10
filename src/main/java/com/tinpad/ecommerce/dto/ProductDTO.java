@@ -25,9 +25,11 @@ public class ProductDTO {
 
     private Long inventory;
 
-    private String brandName;
+    private BrandDTO brand;
 
-    public ProductDTO(String productId, String title, String description, String imgUrl, Double price, CategoryDTO category, DiscountDTO discount, Long inventory, String brandName) {
+    private Float rating;
+
+    public ProductDTO(String productId, String title, String description, String imgUrl, Double price, CategoryDTO category, DiscountDTO discount, Long inventory, BrandDTO brand, Float rating) {
         setProductId(productId);
         setTitle(title);
         setDescription(description);
@@ -36,10 +38,11 @@ public class ProductDTO {
         setCategory(category);
         setDiscount(discount);
         setInventory(inventory);
-        setBrandName(brandName);
+        setBrand(brand);
+        setRating(rating);
     }
 
-    public ProductDTO(String title, String description, String imgUrl, Double price, CategoryDTO category, DiscountDTO discount, Long inventory, String brandName) {
+    public ProductDTO(String title, String description, String imgUrl, Double price, CategoryDTO category, DiscountDTO discount, Long inventory, BrandDTO brand, Float rating) {
         setTitle(title);
         setDescription(description);
         setImgUrl(imgUrl);
@@ -47,7 +50,8 @@ public class ProductDTO {
         setCategory(category);
         setDiscount(discount);
         setInventory(inventory);
-        setBrandName(brandName);
+        setBrand(brand);
+        setRating(rating);
     }
 
     public ProductDTO(@NotNull Product product) {
@@ -59,7 +63,8 @@ public class ProductDTO {
         setCategory(new CategoryDTO(product.getCategory()));
         setDiscount(new DiscountDTO(product.getDiscount()));
         setInventory(product.getInventory());
-        setBrandName(product.getBrandName());
+        setBrand(new BrandDTO(product.getBrand()));
+        setRating(product.getRating());
     }
 
     public void setProductId(String productId) {
@@ -102,9 +107,13 @@ public class ProductDTO {
         this.inventory = inventory;
     }
 
-    public void setBrandName(@NotNull String brandName) {
-        if(brandName.length() <= 255) {
-            this.brandName = brandName;
+    public void setBrand(BrandDTO brand) {
+        this.brand = brand;
+    }
+
+    public void setRating(Float rating) {
+        if(rating <= 5 && rating > 0) {
+            this.rating = rating;
         }
     }
 

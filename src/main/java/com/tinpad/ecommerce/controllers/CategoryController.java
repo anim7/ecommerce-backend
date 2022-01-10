@@ -30,7 +30,7 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public List<CategoryDTO> deleteCategory(@RequestParam String id) {
+    public List<CategoryDTO> deleteCategory(@RequestParam(name = "id", required = false) String id) {
         return categoryService.deleteCategories(id);
     }
 

@@ -3,6 +3,7 @@ package com.tinpad.ecommerce.generator;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.sql.Statement;
 public class DiscountIdGenerator implements IdentifierGenerator {
 
     @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object)
+    public Serializable generate(@NotNull SharedSessionContractImplementor session, Object object)
             throws HibernateException {
 
         StringBuilder prefix = new StringBuilder("disc");

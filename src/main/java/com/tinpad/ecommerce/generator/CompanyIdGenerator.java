@@ -13,19 +13,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 @Component
-public class ProductIdGenerator implements IdentifierGenerator {
+public class CompanyIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(@NotNull SharedSessionContractImplementor session, Object object)
             throws HibernateException {
 
-        StringBuilder prefix = new StringBuilder("prod");
+        StringBuilder prefix = new StringBuilder("comp");
         Connection connection = session.connection();
 
         try {
             Statement statement=connection.createStatement();
 
-            ResultSet rs=statement.executeQuery("select count(product_id) as Id from products");
+            ResultSet rs=statement.executeQuery("select count(company_id) as Id from companies");
 
             if(rs.next())
             {

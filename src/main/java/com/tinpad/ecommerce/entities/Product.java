@@ -33,18 +33,24 @@ public class Product {
     private Double price;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
+    @JoinColumn(name = "discount_id")
     private Discount discount;
 
     @Column(nullable = false)
     private Long inventory;
 
-    @Column(length = 1000, nullable = false)
-    public String brandName;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
-    public Product(String productId, String title, String description, String imgUrl, Double price, Category category, Discount discount, Long inventory, String brandName) {
+    @Column(nullable = false)
+    private Float rating;
+
+    public Product(String productId, String title, String description, String imgUrl, Double price, Category category, Discount discount, Long inventory, Brand brand, Float rating) {
         setProductId(productId);
         setTitle(title);
         setDescription(description);
@@ -53,10 +59,11 @@ public class Product {
         setCategory(category);
         setDiscount(discount);
         setInventory(inventory);
-        setBrandName(brandName);
+        setBrand(brand);
+        setRating(rating);
     }
 
-    public Product(String title, String description, String imgUrl, Double price, Category category, Discount discount, Long inventory, String brandName) {
+    public Product(String title, String description, String imgUrl, Double price, Category category, Discount discount, Long inventory, Brand brand, Float rating) {
         setTitle(title);
         setDescription(description);
         setImgUrl(imgUrl);
@@ -64,7 +71,8 @@ public class Product {
         setCategory(category);
         setDiscount(discount);
         setInventory(inventory);
-        setBrandName(brandName);
+        setBrand(brand);
+        setRating(rating);
     }
 
     public Product(ProductDTO productDTO) {
@@ -78,7 +86,8 @@ public class Product {
         setCategory(new Category(productDTO.getCategory()));
         setDiscount(new Discount(productDTO.getDiscount()));
         setInventory(productDTO.getInventory());
-        setBrandName(productDTO.getBrandName());
+        setBrand(new Brand(productDTO.getBrand()));
+        setRating(productDTO.getRating());
     }
 
     public void setProductId(String productId) {
@@ -121,9 +130,13 @@ public class Product {
         this.inventory = inventory;
     }
 
-    public void setBrandName(@NotNull String brandName) {
-        if(brandName.length() <= 1000) {
-            this.brandName = brandName;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public void setRating(Float rating) {
+        if(rating <= 5 && rating > 0) {
+            this.rating = rating;
         }
     }
 
