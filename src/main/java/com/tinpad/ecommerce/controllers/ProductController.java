@@ -1,7 +1,6 @@
 package com.tinpad.ecommerce.controllers;
 
 import com.tinpad.ecommerce.dto.ProductDTO;
-import com.tinpad.ecommerce.entities.Product;
 import com.tinpad.ecommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +19,19 @@ public class ProductController {
         return productService.getProductsById(id);
     }
 
-    @GetMapping("/{title}")
-    public List<ProductDTO> getProductsByTitle(@PathVariable String title) {
-        return productService.getProductsByTitle(title);
+    @GetMapping("/{name}")
+    public List<ProductDTO> getProductsByCategory(@PathVariable String name, @RequestParam(name = "min", required = false) Double min, @RequestParam(name = "max", required = false) Double max) {
+        return productService.getProductsByPriceRange(name, min, max);
+    }
+
+    @GetMapping("/{name}/{title}")
+    public List<ProductDTO> getProductsByCategory(@PathVariable String name, @PathVariable String title, @RequestParam(name = "min", required = false) Double min, @RequestParam(name = "max", required = false) Double max) {
+        return productService.getProductsByPriceRange(name, title, min, max);
+    }
+
+    @GetMapping("/ids")
+    public List<String> getAllIds() {
+        return productService.getAllIds();
     }
 
     @PostMapping
