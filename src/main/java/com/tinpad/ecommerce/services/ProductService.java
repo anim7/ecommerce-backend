@@ -1,7 +1,9 @@
 package com.tinpad.ecommerce.services;
 
 import com.tinpad.ecommerce.dto.ProductDTO;
+import com.tinpad.ecommerce.entities.Category;
 import com.tinpad.ecommerce.entities.Product;
+import com.tinpad.ecommerce.repositories.CategoryRepository;
 import com.tinpad.ecommerce.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<ProductDTO> getProductsById(String id) {
         if(id != null) {
@@ -109,6 +113,27 @@ public class ProductService {
 
     public List<String> getAllIds() {
         return productRepository.getAllIds();
+    }
+
+//    public List<ProductDTO> getProductsByIdAndSize(String id, Long size) {
+//
+//    }
+
+    public Long getNumberOfProducts(String category, String title) {
+        if(category == null && title == null) {
+            return productRepository.getNumberOfProducts();
+        } else if(category != null) {
+            Category categoryObj = categoryRepository.findByName(category);
+            if(categoryObj == null) {
+                return 0L;
+            }
+            String categoryId = categoryObj.getCategoryId();
+            if(title == null) {
+                return productRepository.getNumberOfProducts(categoryId);
+            }
+            return productRepository.getNumberOfProducts(categoryId, title);
+        }
+        return productRepository.getNumberOfProductsByTitle(title);
     }
 
     public ProductDTO addProduct(ProductDTO productDTO) {

@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -31,7 +32,7 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    private Short age;
+    private Date dateOfBirth;
 
     @Column(nullable = false)
     private String password;
@@ -45,23 +46,23 @@ public class User {
 
     private Boolean active;
 
-    public User(String userId, String userName, String firstName, String lastName, Short age, String password, String email, Role role, Boolean active) {
+    public User(String userId, String userName, String firstName, String lastName, Date dateOfBirth, String password, String email, Role role, Boolean active) {
         setUserId(userId);
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
-        setAge(age);
+        setDateOfBirth(dateOfBirth);
         setPassword(password);
         setEmail(email);
         setRole(role);
         setActive(active);
     }
 
-    public User(String userName, String firstName, String lastName, Short age, String password, String email, Role role) {
+    public User(String userName, String firstName, String lastName, Date dateOfBirth, String password, String email, Role role) {
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
-        setAge(age);
+        setDateOfBirth(dateOfBirth);
         setPassword(password);
         setEmail(email);
         setRole(role);
@@ -73,7 +74,7 @@ public class User {
         setUserName(userDTO.getUsername());
         setFirstName(userDTO.getFirstName());
         setLastName(userDTO.getLastName());
-        setAge(userDTO.getAge());
+        setDateOfBirth(userDTO.getDateOfBirth());
         setPassword(userDTO.getPassword());
         setEmail(userDTO.getEmail());
         setRole(new Role(userDTO.getRole()));
@@ -100,16 +101,18 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setAge(Short age) {
-        if(age > 0 && age <= 150) {
-            this.age = age;
-        }
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setPassword(@NotNull String password) {
         if(password.length() >= 8) {
             this.password = password;
         }
+    }
+
+    public double add(double num1, double num2) {
+        return num1 + num2;
     }
 
     public void setEmail(@NotNull String email) {

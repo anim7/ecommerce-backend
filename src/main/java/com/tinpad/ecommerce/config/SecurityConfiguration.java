@@ -3,6 +3,7 @@ package com.tinpad.ecommerce.config;
 import com.tinpad.ecommerce.services.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,11 +33,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //               .and().formLogin();
         http.authorizeRequests()
                 .antMatchers("/auth/users/email/*").permitAll()
+                .antMatchers("/api/products/size").permitAll()
+                .antMatchers("/auth/roles/*").permitAll()
                 .antMatchers("/auth/users/*").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/auth/**").authenticated()
-                .antMatchers("/**").authenticated()
-                .and().formLogin();
+                .antMatchers("/**").authenticated();
+        http.cors();
     }
 
     @Bean

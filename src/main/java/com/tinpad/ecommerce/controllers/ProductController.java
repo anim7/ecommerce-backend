@@ -29,6 +29,16 @@ public class ProductController {
         return productService.getProductsByPriceRange(name, title, min, max);
     }
 
+//    @GetMapping("/{id}")
+//    public List<ProductDTO> getProductsByIdAndSize(@PathVariable String id, @RequestParam(name = "size") Long size) {
+//        return productService.getProductsByIdAndSize(id, size);
+//    }
+
+    @GetMapping("/size")
+    public Long getNumberOfProducts(@RequestParam(name = "category", required = false) String category, @RequestParam(name = "title", required = false) String title) {
+        return productService.getNumberOfProducts(category, title);
+    }
+
     @GetMapping("/ids")
     public List<String> getAllIds() {
         return productService.getAllIds();

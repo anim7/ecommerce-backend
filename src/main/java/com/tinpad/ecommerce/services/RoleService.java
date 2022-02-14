@@ -28,6 +28,10 @@ public class RoleService {
         return roleDTOs;
     }
 
+    public RoleDTO getRoleByName(String name) {
+        return new RoleDTO(roleRepository.findByName(name));
+    }
+
     public RoleDTO addRole(RoleDTO roleDTO) {
         Role role = new Role(roleDTO);
         roleRepository.save(role);

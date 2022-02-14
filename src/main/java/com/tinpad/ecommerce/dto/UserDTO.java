@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -23,7 +24,7 @@ public class UserDTO implements UserDetails {
 
     private String lastName;
 
-    private Short age;
+    private Date dateOfBirth;
 
     private String password;
 
@@ -33,23 +34,23 @@ public class UserDTO implements UserDetails {
 
     private Boolean active;
 
-    public UserDTO(String userId, String userName, String firstName, String lastName, Short age, String password, String email, RoleDTO role, Boolean active) {
+    public UserDTO(String userId, String userName, String firstName, String lastName, Date dateOfBirth, String password, String email, RoleDTO role, Boolean active) {
         setUserId(userId);
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
-        setAge(age);
+        setDateOfBirth(dateOfBirth);
         setPassword(password);
         setEmail(email);
         setRole(role);
         setActive(active);
     }
 
-    public UserDTO(String userName, String firstName, String lastName, Short age, String password, String email, RoleDTO role, Boolean active) {
+    public UserDTO(String userName, String firstName, String lastName, Date dateOfBirth, String password, String email, RoleDTO role, Boolean active) {
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
-        setAge(age);
+        setDateOfBirth(dateOfBirth);
         setPassword(password);
         setEmail(email);
         setRole(role);
@@ -61,7 +62,7 @@ public class UserDTO implements UserDetails {
         setUserName(user.getUserName());
         setFirstName(user.getFirstName());
         setLastName(user.getLastName());
-        setAge(user.getAge());
+        setDateOfBirth(user.getDateOfBirth());
         setPassword(user.getPassword());
         setEmail(user.getEmail());
         setRole(new RoleDTO(user.getRole()));
@@ -88,10 +89,8 @@ public class UserDTO implements UserDetails {
         this.lastName = lastName;
     }
 
-    public void setAge(Short age) {
-        if(age > 0 && age <= 150) {
-            this.age = age;
-        }
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setPassword(@NotNull String password) {

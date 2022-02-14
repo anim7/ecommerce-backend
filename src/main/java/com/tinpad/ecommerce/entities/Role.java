@@ -20,7 +20,7 @@ public class Role {
     @Column(nullable = false, length = 9)
     private String roleId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
